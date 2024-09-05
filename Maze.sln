@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze.App", "Maze.App\Maze.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze.Core", "Maze.Core\Maze.Core.csproj", "{D9628DA3-5686-45FF-8D81-EF439DB9BC8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze.Core.Tests", "Maze.Core.Tests\Maze.Core.Tests.csproj", "{DDF07927-1F04-4B15-9402-D4BB018C9697}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D9628DA3-5686-45FF-8D81-EF439DB9BC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9628DA3-5686-45FF-8D81-EF439DB9BC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9628DA3-5686-45FF-8D81-EF439DB9BC8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDF07927-1F04-4B15-9402-D4BB018C9697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF07927-1F04-4B15-9402-D4BB018C9697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF07927-1F04-4B15-9402-D4BB018C9697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF07927-1F04-4B15-9402-D4BB018C9697}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

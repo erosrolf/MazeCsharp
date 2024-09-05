@@ -1,10 +1,8 @@
-﻿using System.Numerics;
-
-namespace Maze.Core.Models;
+﻿namespace Maze.Core.Models;
 
 public struct Maze
 {
-    public Vector2 Size;
+    public (int, int) Size;
     public bool[,] RightWalls;
     public bool[,] BottomWalls;
 }
