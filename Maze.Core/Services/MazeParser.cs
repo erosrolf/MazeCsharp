@@ -1,4 +1,6 @@
-﻿namespace Maze.Core.Services;
+﻿using Maze.Core.Models;
+
+namespace Maze.Core.Services;
 
 public class MazeParser
 {
@@ -8,25 +10,31 @@ public class MazeParser
         var lines = File.ReadAllLines(filePath);
         
         // Parse Size
-        if (TryParseMazeSize(lines[0].Split(' '), out maze.Size) == false)
+        if (TryParseMazeSize(lines[0].Split(' '), out maze.MazeSize) == false)
         {
             return false;
         }
 
         // If Size zero
-        if (maze.Size.Item1 == 0 || maze.Size.Item2 == 0)
+        if (maze.MazeSize.Height == 0 || maze.MazeSize.Width == 0)
         {
             return true;
         }
         
         var splitIndex = Array.IndexOf(lines, string.Empty);
-        maze.RightWalls = new bool[maze.Size.Item1, maze.Size.Item2];
-        maze.BottomWalls = new bool[maze.Size.Item1, maze.Size.Item2];
+        maze.RightWalls = new bool[maze.MazeSize.Height, maze.MazeSize.Width];
+        maze.BottomWalls = new bool[maze.MazeSize.Height, maze.MazeSize.Width];
 
         // TryParse Right and Bottom walls
-        return ((splitIndex > 1 && splitIndex < lines.Length - 1)
+        bool isCorrect = ((splitIndex > 1 && splitIndex < lines.Length - 1)
                 && TryParseBoolMatrix(lines.Skip(1).Take(splitIndex - 1).ToArray(), ref maze.RightWalls)
                 && TryParseBoolMatrix(lines.Skip(splitIndex + 1).ToArray(), ref maze.BottomWalls));
+
+        if (isCorrect == false)
+        {
+            maze.Clear();
+        }
+        return isCorrect;
     }
     
     private static bool TryParseBoolMatrix(string[] lines, ref bool[,] matrix)
@@ -38,7 +46,16 @@ public class MazeParser
 
         for (int row = 0; row < lines.Length; row++)
         {
-            var inputMatrix = Array.ConvertAll(lines[row].Split(' '), s => int.Parse(s) != 0);
+            bool[] inputMatrix;
+            try
+            {
+                inputMatrix = Array.ConvertAll(lines[row].Split(' '), s => int.Parse(s) != 0);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
             if (inputMatrix.Length != matrix.GetLength(1))
             {
                 return false;
@@ -53,12 +70,12 @@ public class MazeParser
         return true;
     }
 
-    private static bool TryParseMazeSize(string[] sizeParts, out (int, int) size)
+    private static bool TryParseMazeSize(string[] sizeParts, out MazeSize mazeSize)
     {
-        size = default;
+        mazeSize = default;
         if (sizeParts.Length != 2) return false;
         
-        return (int.TryParse(sizeParts[0], out size.Item1) &&
-                int.TryParse(sizeParts[1], out size.Item2));
+        return (int.TryParse(sizeParts[0], out mazeSize.Height) &&
+                int.TryParse(sizeParts[1], out mazeSize.Width));
     }
 }
